@@ -1,6 +1,5 @@
-# Bash script to zip the whole project in
-# order to make it deriverable
-
+#!/bin/bash
+# Bash script to zip the whole project in order to make it deriverable
 # please make sure zip and texlive are installed
 
 
@@ -17,7 +16,12 @@ cd ..
 mv tmp.pdf report.pdf
 rm tmp.*
 
+# TODO: Remove whatever is in the .gitignore
+
 # zip it (excluding useless stuff)
-zip -r outfile.zip . -x zip.sh report\* .git\* README.md
+zip -r ../outfile.zip . -x zip.sh report\* *.git\* README.md
 
-
+# cleanup
+git reset --hard HEAD
+rm -f zip.sh
+git commit -am "zipped"
