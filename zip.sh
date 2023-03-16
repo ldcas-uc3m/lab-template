@@ -23,5 +23,3 @@ zip -r ../outfile.zip . -x zip.sh report\* *.git\* README.md
 
 # cleanup
 git reset --hard HEAD
-rm -f zip.sh
-git commit -am "zipped"
