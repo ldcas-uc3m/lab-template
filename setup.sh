@@ -44,14 +44,15 @@ get_info() {
 update_report() {
     
     # general variables
-    sed -i "s/[\\]def[\\]subject[{]Subject[}]/\\\\def\\\\subject{$subject}/g" report/parts/0-cover.tex
-    sed -i "s/[\\]def[\\]year[{]2022-2023[}]/\\\\def\\\\year{$year}/g" report/parts/0-cover.tex
-    sed -i "s/[\\]def[\\]labType[{]Lab[}]/\\\\def\\\\subjlabTypeect{$lab_type}/g" report/parts/0-cover.tex
-    sed -i "s/[\\]def[\\]labName[{]Name[}]/\\\\def\\\\labName{$lab_name}/g" report/parts/0-cover.tex
-    sed -i "s/[\\]def[\\]proffesor[{]Name[}]/\\\\def\\\\proffesor{$prof}/g" report/parts/0-cover.tex
+    sed -i "s/[\\]def[\\]subject[{].*[}]/\\\\def\\\\subject{$subject}/g" report/parts/0-cover.tex
+    sed -i "s/[\\]def[\\]year[{].*[}]/\\\\def\\\\year{$year}/g" report/parts/0-cover.tex
+    sed -i "s/[\\]def[\\]labType[{].*[}]/\\\\def\\\\labType{$lab_type}/g" report/parts/0-cover.tex
+    sed -i "s/[\\]def[\\]labName[{].*[}]/\\\\def\\\\labName{$lab_name}/g" report/parts/0-cover.tex
+    sed -i "s/[\\]def[\\]proffesor[{].*[}]/\\\\def\\\\proffesor{$prof}/g" report/parts/0-cover.tex
     
+    # authors
 
-    # count lines til author
+    # count lines 'til author
     author_line=$(sed -n '/[{][\\]LARGE Luis Daniel Casais Mezquida - 100429021[}][\\\\]/{=; q;}' report/parts/0-cover.tex)
 
     # delete author lines
