@@ -8,6 +8,7 @@ get_info() {
 
     echo -n "Year (eg. if 22/23 put 22)?: "
     read year
+    year=20$year-20$((year+1))
 
     echo -n "Lab type (eg. Lab 1)?: "
     read lab_type
@@ -41,52 +42,35 @@ get_info() {
 
 
 update_report() {
-    # re-create LaTeX file
-    rm -f report/parts/0-cover.tex
-    touch report/parts/0-cover.tex
     
-    # TODO: change echos for something better bruh
+    # general variables
+    sed -i "s/[\\]def[\\]subject[{]Subject[}]/\\\\def\\\\subject{$subject}/g" report/parts/0-cover.tex
+    sed -i "s/[\\]def[\\]year[{]2022-2023[}]/\\\\def\\\\year{$year}/g" report/parts/0-cover.tex
+    sed -i "s/[\\]def[\\]labType[{]Lab[}]/\\\\def\\\\subjlabTypeect{$lab_type}/g" report/parts/0-cover.tex
+    sed -i "s/[\\]def[\\]labName[{]Name[}]/\\\\def\\\\labName{$lab_name}/g" report/parts/0-cover.tex
+    sed -i "s/[\\]def[\\]proffesor[{]Name[}]/\\\\def\\\\proffesor{$prof}/g" report/parts/0-cover.tex
     
-    echo "\begin{titlepage}" >> report/parts/0-cover.tex
-    echo "    \begin{sffamily}" >> report/parts/0-cover.tex
-    echo "    \color{azulUC3M}" >> report/parts/0-cover.tex
-    echo "    \begin{center}" >> report/parts/0-cover.tex
-    echo "        % university logo" >> report/parts/0-cover.tex
-    echo "        \begin{figure}[H]" >> report/parts/0-cover.tex
-    echo "            \makebox[\textwidth][c]{\includegraphics[width=5cm]{img/uc3m_logo.png}}" >> report/parts/0-cover.tex
-    echo "        \end{figure}" >> report/parts/0-cover.tex
-    echo "        \vspace{1.5cm}" >> report/parts/0-cover.tex
-    echo "        \begin{Large}" >> report/parts/0-cover.tex
-    echo "            Bachelor's degree in Computer Science and Engineering\\\\" >> report/parts/0-cover.tex
-    echo "            $subject\\\\" >> report/parts/0-cover.tex
-    echo "            20$year-20$((year+1))\\\\" >> report/parts/0-cover.tex
-    echo "            \vspace{2cm}" >> report/parts/0-cover.tex
-    echo "            \textsl{$lab_type}" >> report/parts/0-cover.tex
-    echo "            \bigskip" >> report/parts/0-cover.tex
-    echo "" >> report/parts/0-cover.tex
-    echo "        \end{Large}" >> report/parts/0-cover.tex
-    echo "            {\Huge \`\`$lab_name''}\\\\" >> report/parts/0-cover.tex
-    echo "            \vspace*{0.5cm}" >> report/parts/0-cover.tex
-    echo "            \rule{10.5cm}{0.1mm}\\\\" >> report/parts/0-cover.tex
-    echo "            \vspace*{0.9cm}" >> report/parts/0-cover.tex
 
-    # authors
+    # count lines til author
+    author_line=$(sed -n '/[{][\\]LARGE Luis Daniel Casais Mezquida - 100429021[}][\\\\]/{=; q;}' report/parts/0-cover.tex)
+
+    # delete author lines
+    delete=${author_line}d
+    sed -i "$delete" report/parts/0-cover.tex
+    sed -i "$delete" report/parts/0-cover.tex
+
+    # insert authors
     for ((i = 0; i < "$num_students"; i++)); do
-        echo "            {\LARGE ${names[i]} - ${nias[i]}}\\\\" >> report/parts/0-cover.tex
-        echo "            \vspace*{0.2cm}" >> report/parts/0-cover.tex
+        name=${names[i]}
+        nia=${nias[i]}
+
+        sed -i "$author_line i \ \t\t{\\\\LARGE $name - $nia}\\\\\\\\" report/parts/0-cover.tex
+        author_line=$((author_line+1))
+
+        sed -i "$author_line i \ \t\t\\\\vspace*{0.2cm}" report/parts/0-cover.tex
+        author_line=$((author_line+1))
     done
 
-    echo "" >> report/parts/0-cover.tex
-    echo "            \vspace*{0.8cm}" >> report/parts/0-cover.tex
-    echo "        \begin{Large}" >> report/parts/0-cover.tex
-    echo "            Professor:\\\\" >> report/parts/0-cover.tex
-    echo "            $prof\\\\" >> report/parts/0-cover.tex
-    echo "        \end{Large}" >> report/parts/0-cover.tex
-    echo "    \end{center}" >> report/parts/0-cover.tex
-    echo "    \vfill" >> report/parts/0-cover.tex
-    echo "" >> report/parts/0-cover.tex
-    echo "    \end{sffamily}" >> report/parts/0-cover.tex
-    echo "\end{titlepage}" >> report/parts/0-cover.tex
 }
 
 
@@ -142,7 +126,7 @@ debug() {
 
 
 cleanup() {
-    git commit -am "setup"
+    # git commit -am "setup"
     rm -f setup.sh
 }
 
