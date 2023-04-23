@@ -44,7 +44,9 @@ update_report() {
     # re-create LaTeX file
     rm -f report/parts/0-cover.tex
     touch report/parts/0-cover.tex
-
+    
+    # TODO: change echos for something better bruh
+    
     echo "\begin{titlepage}" >> report/parts/0-cover.tex
     echo "    \begin{sffamily}" >> report/parts/0-cover.tex
     echo "    \color{azulUC3M}" >> report/parts/0-cover.tex
@@ -92,7 +94,9 @@ update_readme() {
     # re-create GFM file
     rm -f README.md
     touch README.md
-
+    
+    # TODO: change echos for something better bruh
+    
     echo "# $lab_type: $lab_name" >> README.md
 
     # authors
@@ -111,10 +115,10 @@ update_readme() {
     echo "Bachelor's Degree in Computer Science and Engineering, grp. 89  " >> README.md
     echo "Universidad Carlos III de Madrid" >> README.md
     echo "" >> README.md
-    echo "# Project statement" >> README.md
+    echo "## Project statement" >> README.md
     echo "" >> README.md
     echo "" >> README.md
-    echo "# Installation and execution" >> README.md
+    echo "## Installation and execution" >> README.md
 }
 
 
