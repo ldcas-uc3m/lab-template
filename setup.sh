@@ -8,7 +8,8 @@ get_info() {
 
     echo -n "Year (eg. if 22/23 put 22)?: "
     read year
-    year=20$year-20$((year+1))
+    course=20$year-20$((year+1))
+    course_short=$year/$((year+1))
 
     echo -n "Lab type (eg. Lab 1)?: "
     read lab_type
@@ -27,7 +28,7 @@ get_info() {
         nias=("100429021")
     
     else
-        echo "Please enter the names in alphabetical order"
+        echo "Please enter the names in alphabetical order."
         names=()
         nias=()
         for ((i = 0 ; i < "$num_students" ; i++)); do
@@ -45,7 +46,7 @@ update_report() {
     
     # general variables
     sed -i "s/[\\]def[\\]subject[{].*[}]/\\\\def\\\\subject{$subject}/g" report/parts/0-cover.tex
-    sed -i "s/[\\]def[\\]year[{].*[}]/\\\\def\\\\year{$year}/g" report/parts/0-cover.tex
+    sed -i "s/[\\]def[\\]year[{].*[}]/\\\\def\\\\year{$course}/g" report/parts/0-cover.tex
     sed -i "s/[\\]def[\\]labType[{].*[}]/\\\\def\\\\labType{$lab_type}/g" report/parts/0-cover.tex
     sed -i "s/[\\]def[\\]labName[{].*[}]/\\\\def\\\\labName{$lab_name}/g" report/parts/0-cover.tex
     sed -i "s/[\\]def[\\]proffesor[{].*[}]/\\\\def\\\\proffesor{$prof}/g" report/parts/0-cover.tex
@@ -76,34 +77,28 @@ update_report() {
 
 
 update_readme() {
-    # re-create GFM file
-    rm -f README.md
-    touch README.md
     
-    # TODO: change echos for something better bruh
-    
-    echo "# $lab_type: $lab_name" >> README.md
+    # general data
+    sed -i "s/# Lab: Name/# $lab_type: $lab_name/" README.md
+    sed -i "s=Subject 2X/2Y=$subject $course_short=" README.md  # sed allows for use of different delimeters, in this case = instead of /
 
     # authors
-    echo -n "By " >> README.md
+
+    # build string
+    authors="By "
     for ((i = 0; i < "$num_students"; i++)); do
         if (( i < $num_students - 2)); then
-            echo -n "${names[i]}, " >> README.md
+            authors="$authors${names[i]}, "
         elif (( i < $num_students - 1)); then
-            echo -n "${names[i]} & " >> README.md
+            authors="$authors${names[i]} \& "  # need to scape the &
         else
-            echo "${names[i]}  " >> README.md
+            authors="$authors${names[i]}"
         fi
     done
 
-    echo "$subject $year/$((year+1))  " >> README.md
-    echo "Bachelor's Degree in Computer Science and Engineering, grp. 89  " >> README.md
-    echo "Universidad Carlos III de Madrid" >> README.md
-    echo "" >> README.md
-    echo "## Project statement" >> README.md
-    echo "" >> README.md
-    echo "" >> README.md
-    echo "## Installation and execution" >> README.md
+    # insert authors
+    sed -i "s/By Luis Daniel Casais Mezquida/$authors/g" README.md
+
 }
 
 
@@ -111,7 +106,8 @@ debug() {
 
     echo "$subject"
     echo "$year"
-    echo "$((year+1))"
+    echo "$course"
+    echo "$course_short"
     echo "$lab_type"
     echo "$lab_name"
     echo "$prof"
@@ -126,6 +122,13 @@ debug() {
 }
 
 
+update_license() {
+    full_year=20$year
+
+    sed -i "s/<YEAR>/$full_year/" LICENSE
+}
+
+
 cleanup() {
     # git commit -am "setup"
     rm -f setup.sh
@@ -137,6 +140,7 @@ cleanup() {
 # ---
 
 get_info
+update_license
 update_readme
 update_report
 cleanup
