@@ -114,8 +114,7 @@ done
 # ---
 
 # year
-full_year=20$year
-sed -i "s/<YEAR>/$full_year/" LICENSE
+sed -i "s/<YEAR>/$course/" LICENSE
 
 # authors
 sed -i "s/Luis Daniel Casais Mezquida/$authors/g" LICENSE
