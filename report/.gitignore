@@ -1,4 +1,3 @@
-*.pdf
 *.aux
 *.bcf
 *.fdb_latexmk
@@ -9,3 +8,7 @@
 *.fls
 *.bbl
 *.blg
+*.out
+svg-inkscape/
+
+*.pdf

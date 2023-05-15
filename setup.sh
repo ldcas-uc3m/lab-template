@@ -2,131 +2,137 @@
 # Automate the process of setting up the repository for the specific project
 
 
-get_info() {
-    echo -n "Subject?: "
-    read subject
+# ---
+# Get information
+# ---
 
-    echo -n "Year (eg. if 22/23 put 22)?: "
-    read year
+echo -n "Subject?: "
+read subject
 
-    echo -n "Lab type (eg. Lab 1)?: "
-    read lab_type
+echo -n "Year (eg. if 22/23 put 22)?: "
+read year
 
-    echo -n "Lab name?: "
-    read lab_name
+echo -n "Lab type (eg. Lab 1)?: "
+read lab_type
 
-    echo -n "Professor?: "
-    read prof
+echo -n "Lab name?: "
+read lab_name
 
-    echo -n "Number of students?: "
-    read num_students
+echo -n "Professor?: "
+read prof
 
-    if (("$num_students" == 1)); then
-        names=("Luis Daniel Casais Mezquida")
-        nias=("100429021")
-    
+echo -n "Number of students?: "
+read num_students
+
+if (("$num_students" == 1)); then
+    names=("Luis Daniel Casais Mezquida")
+    nias=("100429021")
+
+else
+    echo "Please enter the names in alphabetical order."
+    names=()
+    nias=()
+    for ((i = 0 ; i < "$num_students" ; i++)); do
+        echo -n "Name $i: "
+        read names[i]
+        
+        echo -n "NIA $i: "
+        read nias[i]
+    done
+fi
+
+
+# ---
+# Update README
+# ---
+
+# general data
+sed -i "s/# Lab: Name/# $lab_type: $lab_name/" README.md
+
+course_short=$year/$((year+1))
+sed -i "s=Subject 2X/2Y=$subject $course_short=" README.md  # sed allows for use of different delimeters, in this case = instead of /
+
+# authors
+
+# build author string
+authors=""
+for ((i = 0; i < "$num_students"; i++)); do
+    if (( i < $num_students - 2)); then
+        authors="$authors${names[i]}, "
+    elif (( i < $num_students - 1)); then
+        authors="$authors${names[i]} \& "  # need to scape the &
     else
-        echo "Please enter the names in alphabetical order"
-        names=()
-        nias=()
-        for ((i = 0 ; i < "$num_students" ; i++)); do
-            echo -n "Name $i: "
-            read names[i]
-            
-            echo -n "NIA $i: "
-            read nias[i]
-        done
+        authors="$authors${names[i]}"
     fi
-}
+done
+
+# insert authors
+sed -i "s/By Luis Daniel Casais Mezquida/By $authors/g" README.md
 
 
-update_report() {
-    # re-create LaTeX file
-    rm -f report/parts/0-cover.tex
-    touch report/parts/0-cover.tex
-    
-    # TODO: change echos for something better bruh
-    
-    echo "\begin{titlepage}" >> report/parts/0-cover.tex
-    echo "    \begin{sffamily}" >> report/parts/0-cover.tex
-    echo "    \color{azulUC3M}" >> report/parts/0-cover.tex
-    echo "    \begin{center}" >> report/parts/0-cover.tex
-    echo "        % university logo" >> report/parts/0-cover.tex
-    echo "        \begin{figure}[H]" >> report/parts/0-cover.tex
-    echo "            \makebox[\textwidth][c]{\includegraphics[width=5cm]{img/uc3m_logo.png}}" >> report/parts/0-cover.tex
-    echo "        \end{figure}" >> report/parts/0-cover.tex
-    echo "        \vspace{1.5cm}" >> report/parts/0-cover.tex
-    echo "        \begin{Large}" >> report/parts/0-cover.tex
-    echo "            Bachelor's degree in Computer Science and Engineering\\\\" >> report/parts/0-cover.tex
-    echo "            $subject\\\\" >> report/parts/0-cover.tex
-    echo "            20$year-20$((year+1))\\\\" >> report/parts/0-cover.tex
-    echo "            \vspace{2cm}" >> report/parts/0-cover.tex
-    echo "            \textsl{$lab_type}" >> report/parts/0-cover.tex
-    echo "            \bigskip" >> report/parts/0-cover.tex
-    echo "" >> report/parts/0-cover.tex
-    echo "        \end{Large}" >> report/parts/0-cover.tex
-    echo "            {\Huge \`\`$lab_name''}\\\\" >> report/parts/0-cover.tex
-    echo "            \vspace*{0.5cm}" >> report/parts/0-cover.tex
-    echo "            \rule{10.5cm}{0.1mm}\\\\" >> report/parts/0-cover.tex
-    echo "            \vspace*{0.9cm}" >> report/parts/0-cover.tex
-
-    # authors
-    for ((i = 0; i < "$num_students"; i++)); do
-        echo "            {\LARGE ${names[i]} - ${nias[i]}}\\\\" >> report/parts/0-cover.tex
-        echo "            \vspace*{0.2cm}" >> report/parts/0-cover.tex
-    done
-
-    echo "" >> report/parts/0-cover.tex
-    echo "            \vspace*{0.8cm}" >> report/parts/0-cover.tex
-    echo "        \begin{Large}" >> report/parts/0-cover.tex
-    echo "            Professor:\\\\" >> report/parts/0-cover.tex
-    echo "            $prof\\\\" >> report/parts/0-cover.tex
-    echo "        \end{Large}" >> report/parts/0-cover.tex
-    echo "    \end{center}" >> report/parts/0-cover.tex
-    echo "    \vfill" >> report/parts/0-cover.tex
-    echo "" >> report/parts/0-cover.tex
-    echo "    \end{sffamily}" >> report/parts/0-cover.tex
-    echo "\end{titlepage}" >> report/parts/0-cover.tex
-}
+# ---
+# Update report cover
+# ---
 
 
-update_readme() {
-    # re-create GFM file
-    rm -f README.md
-    touch README.md
-    
-    # TODO: change echos for something better bruh
-    
-    echo "# $lab_type: $lab_name" >> README.md
+# general variables
+sed -i "s/[\\]def[\\]subject[{].*[}]/\\\\def\\\\subject{$subject}/g" report/parts/0-cover.tex
 
-    # authors
-    echo -n "By " >> README.md
-    for ((i = 0; i < "$num_students"; i++)); do
-        if (( i < $num_students - 2)); then
-            echo -n "${names[i]}, " >> README.md
-        elif (( i < $num_students - 1)); then
-            echo -n "${names[i]} & " >> README.md
-        else
-            echo "${names[i]}  " >> README.md
-        fi
-    done
+course=20$year-20$((year+1))
+sed -i "s/[\\]def[\\]year[{].*[}]/\\\\def\\\\year{$course}/g" report/parts/0-cover.tex
 
-    echo "$subject $year/$((year+1))  " >> README.md
-    echo "Bachelor's Degree in Computer Science and Engineering, grp. 89  " >> README.md
-    echo "Universidad Carlos III de Madrid" >> README.md
-    echo "" >> README.md
-    echo "## Project statement" >> README.md
-    echo "" >> README.md
-    echo "" >> README.md
-    echo "## Installation and execution" >> README.md
-}
+sed -i "s/[\\]def[\\]labType[{].*[}]/\\\\def\\\\labType{$lab_type}/g" report/parts/0-cover.tex
+sed -i "s/[\\]def[\\]labName[{].*[}]/\\\\def\\\\labName{$lab_name}/g" report/parts/0-cover.tex
+
+sed -i "s/[\\]def[\\]proffesor[{].*[}]/\\\\def\\\\proffesor{$prof}/g" report/parts/0-cover.tex
+
+# authors
+
+# count lines 'til author
+author_line=$(sed -n '/[{][\\]LARGE Luis Daniel Casais Mezquida - 100429021[}][\\\\]/{=; q;}' report/parts/0-cover.tex)
+
+# delete author lines
+delete=${author_line}d
+sed -i "$delete" report/parts/0-cover.tex
+sed -i "$delete" report/parts/0-cover.tex
+
+# insert authors
+for ((i = 0; i < "$num_students"; i++)); do
+    name=${names[i]}
+    nia=${nias[i]}
+
+    sed -i "$author_line i \ \t\t{\\\\LARGE $name - $nia}\\\\\\\\" report/parts/0-cover.tex
+    author_line=$((author_line+1))
+
+    sed -i "$author_line i \ \t\t\\\\vspace*{0.2cm}" report/parts/0-cover.tex
+    author_line=$((author_line+1))
+done
+
+
+# ---
+# Update license
+# ---
+
+# year
+sed -i "s/<YEAR>/$course/" LICENSE
+
+# authors
+sed -i "s/Luis Daniel Casais Mezquida/$authors/g" LICENSE
+
+
+# ---
+# Cleanup
+# ---
+
+rm -f setup.sh
 
 
 debug() {
 
     echo "$subject"
     echo "$year"
-    echo "$((year+1))"
+    echo "$course"
+    echo "$course_short"
     echo "$lab_type"
     echo "$lab_name"
     echo "$prof"
@@ -140,18 +146,4 @@ debug() {
     done
 }
 
-
-cleanup() {
-    git commit -am "setup"
-    rm -f setup.sh
-}
-
-
-# ---
-# MAIN
-# ---
-
-get_info
-update_readme
-update_report
-cleanup
+# debug
