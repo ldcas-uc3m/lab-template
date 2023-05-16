@@ -9,6 +9,7 @@
 *.bbl
 *.blg
 *.out
+*.toc
 svg-inkscape/
 
 *.pdf
