@@ -18,20 +18,16 @@ cp report.pdf ..
 
 cd ..
 
-# remove whatever is in src/.gitignore
-echo "Removing files in .gitignore..."
 cd src
 
-for f in $(cat .gitignore) ; do 
-    rm -rf "$f"
-done
+# <clean stuff up>
 
 cd ..
 
 # zip it (excluding useless stuff)
 echo "Zipping..."
-zip -r $OUTFILE . -x zip.sh report/\* \*.git\* README.md
+zip -r $OUTFILE . -x zip.sh report/\* \*.git\* img/\* README.md
 
 # cleanup
 echo "Cleaning up..."
-git reset --hard HEAD
+rm report.pdf
