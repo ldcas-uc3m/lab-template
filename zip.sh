@@ -4,19 +4,14 @@
 
 OUTFILE=../outfile.zip
 
-# make sure git is up to date
-echo "Making sure git is up to date..."
-git pull
-git checkout main
 
 # compile the report (and save it to root folder)
 echo "Compiling the report..."
-cd report
 
-pdflatex report.tex -halt-on-error > /dev/null
-cp report.pdf ..
+latexmk -cd -shell-escape -pdf report/report.tex 
 
-cd ..
+cp report/report.pdf .
+
 
 cd src
 

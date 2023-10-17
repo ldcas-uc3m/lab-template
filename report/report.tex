@@ -18,21 +18,24 @@
 
 \definecolor{azulUC3M}{RGB}{0,0,102}
 
-% change name of table of contents
-\renewcommand*\contentsname{Table of contents}
-
 % \bibliography{bibliography}
 
 \begin{document}
 
 \input{parts/0-cover.tex}
+
+% (optional) change name of table of contents
+\renewcommand*\contentsname{Table of contents}
+
+% table of contents
 % \tableofcontents
+% \newpage
 
-% Put here all the parts to include (in order)
+% Put here all the LaTeX files to include (in order)
+% \input{parts/main.tex}
+
+% Put here all the Markdown files to include (in order)
 % \markdownInput{parts/main.md}
 
-
-% Put here all the parts to include (in order)
-% \markdownInput{parts/main.md}
 
 \end{document}
