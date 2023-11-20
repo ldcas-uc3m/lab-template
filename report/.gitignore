@@ -11,6 +11,7 @@
 *.out
 *.markdown.lua
 *.toc
+*.err
 
 svg-inkscape/
 _markdown_report/
