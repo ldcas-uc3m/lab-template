@@ -10,6 +10,7 @@
 *.blg
 *.out
 *.markdown.lua
+*.luabridge.lua
 *.toc
 *.err
 
