@@ -1,9 +1,9 @@
 #!/bin/bash
 # Bash script to zip the whole project in order to make it deriverable
-# please make sure zip, pv and texlive are installed
+# please make sure zip and texlive are installed
 
 OUTFILE=../outfile.zip
-
+[ -e $OUTFILE ] && rm $OUTFILE  # remove if exists already
 
 # compile the report (and save it to root folder)
 echo "Compiling the report..."
