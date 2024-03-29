@@ -12,7 +12,13 @@
 *.markdown.lua
 *.luabridge.lua
 *.toc
+*.lof
+*.lot
 *.err
+*.xmpi
+*.lua
+*.xdv
+*.*-SAVE-ERROR
 
 svg-inkscape/
 _markdown_report/
