@@ -25,5 +25,5 @@ latexmk -cd -shell-escape -pdf report.tex
 
 ## VsCode
 Some usefull extensions:
-- [LaTeX](https://marketplace.visualstudio.com/items?itemName=mathematic.vscode-latex)
 - [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
+- [LTeX](https://marketplace.visualstudio.com/items?itemName=valentjn.vscode-ltex): Grammar checker.
