@@ -1,41 +1,54 @@
-\documentclass[12pt]{article}
+\documentclass[es]{uc3mreport}
 
-\addtolength{\oddsidemargin}{-.585in}
-\addtolength{\evensidemargin}{.585in}
-\addtolength{\topmargin}{-.585in}
-\addtolength{\textheight}{.760in}
-\addtolength{\textwidth}{1in}
 
-\usepackage[utf8]{inputenc}
-\usepackage[table]{xcolor}
-\usepackage{listings}
-\usepackage{float}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{markdown}
-% \usepackage{svg}
-% \usepackage[backend=biber, style=ieee, isbn=false,sortcites, maxbibnames=5, minbibnames=1]{biblatex}
+\usepackage{import}
 
-\definecolor{azulUC3M}{RGB}{0,0,102}
+\usepackage{mymacros}  % report-specific macros
 
-% \bibliography{bibliography}
+
+% general config
+
+\graphicspath{{img/}}  % Images folder
+
+\degree{Máster en Ingeniería Informática}
+\subject{Subject}
+\year{202X-202Y}  % academic year
+\group{Z}
+\author{
+    Luis Daniel Casais Mezquida -- 100429021
+    % \\
+}
+% \team{Equipo 69}
+\shortauthor{\abbreviateauthor{Luis Daniel}{Casais Mezquida}}
+\lab{Lab 0}
+\title{Name}
+% \shorttitle{La mejor memoria de la historia}
+\professor{Perico de los Palotes}
+
 
 \begin{document}
+    \makecover
 
-\input{parts/0-cover.tex}
+    \tableofcontents
+    % \listoffigures
+    % \listoftables
 
-% (optional) change name of table of contents
-\renewcommand*\contentsname{Table of contents}
+    % contenidos
+    \begin{report}
+        % \includefrom{parts}{file.tex}
+    \end{report}
 
-% table of contents
-% \tableofcontents
-% \newpage
+    % bibliography
+    % \label{bibliography}
+    % \part{Referencias}
+    % \printbibliography
+    % % \printbibliography[heading=bibintoc,title={Referencias}]  % alternative
 
-% Put here all the LaTeX files to include (in order)
-% \input{parts/main.tex}
-
-% Put here all the Markdown files to include (in order)
-% \markdownInput{parts/main.md}
-
+    % appendices
+    % \begin{appendices}
+    %     \part{Apéndices}  % optional
+    %     \section{Mi apéndice}
+    %     \lipsum[1]
+    % \end{appendices}
 
 \end{document}

@@ -74,6 +74,7 @@ sed -i "s/By Luis Daniel Casais Mezquida/By $authors/g" README.md
 # Update report cover
 # ---
 
+# TODO: re-do for new template
 
 # general variables
 sed -i "s/[\\]def[\\]subject[{].*[}]/\\\\def\\\\subject{$subject}/g" report/parts/0-cover.tex
