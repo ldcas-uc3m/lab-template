@@ -19,6 +19,9 @@
 *.lua
 *.xdv
 *.*-SAVE-ERROR
+*.vrb
+*.nav
+*.snm
 
 svg-inkscape/
 _markdown_report/
