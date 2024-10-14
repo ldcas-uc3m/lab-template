@@ -31,11 +31,11 @@
 
 % \tabref{mytab}
 % remember to create a label for the table (\label{tab:mytab})
-\newcommand{\tabref}[1]{Table \ref{tab:#1}}
+\newcommand{\tabref}[1]{Tabla \ref{tab:#1}}
 
 % \figref{myfig}
 % remember to create a label for the figure (\label{fig:myfig})
-\newcommand{\figref}[1] {Figure \ref{fig:#1}}
+\newcommand{\figref}[1] {Figura \ref{fig:#1}}
 
 
 
@@ -44,7 +44,7 @@
 % \drawiosvgfigure[width]{filename}{caption}
 % remember to disable Word Wrap and Formatted Text for all text (https://www.drawio.com/doc/faq/svg-export-text-problems#disable-formatted-text-and-word-wrap)
 \newcommand{\drawiosvgfigure}[3][0.7] {
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includesvg[inkscapelatex=false,width=#1\textwidth]{#2.drawio.svg}
     \caption{#3}
@@ -54,7 +54,7 @@
 
 % \rasterfigure[width]{filename}{caption}
 \newcommand{\rasterfigure}[3][0.7] {
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includegraphics[width=#1\textwidth]{#2}
     \caption{#3}
@@ -64,7 +64,7 @@
 
 % \svgfigure[width]{filename}{caption}
 \newcommand{\svgfigure}[3][0.7] {
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includesvg[width=#1\textwidth]{#2}
     \caption{#3}
