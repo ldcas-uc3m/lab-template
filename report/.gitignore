@@ -1,4 +1,5 @@
-*.aux
+# LaTeX compilation files
+*.bb*.aux
 *.bcf
 *.fdb_latexmk
 *.log
@@ -12,6 +13,14 @@
 *.markdown.lua
 *.luabridge.lua
 *.toc
+*.err
+*.idx
+*.ilg
+*.ind
+*.maf
+*.mtc
+*.mtc0
+*.mtc0
 *.lof
 *.lot
 *.err
@@ -22,9 +31,15 @@
 *.vrb
 *.nav
 *.snm
-*.bkp
 
 svg-inkscape/
 _markdown_report/
 
+# build folder
+build/
+
+# output file
 report.pdf
+
+# IDEs
+.vscode/

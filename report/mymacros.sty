@@ -1,56 +1,7 @@
 \ProvidesPackage{mymacros}[Auxiliary helper macros for the report]
 
 
-% REFERENCES
-
-\RequirePackage{nameref}
-
-% \chapref{mychap}
-% remember to create a label for the section (\label{chap:mychap})
-\newcommand{\chapref}[1] {%
-  Chapter \ref{chap:#1}, \textit{\nameref{chap:#1}}%
-}
-
-% \secref{mysec}
-% remember to create a label for the section (\label{sec:mysec})
-\newcommand{\secref}[1] {%
-  Section \ref{sec:#1}, \textit{\nameref{sec:#1}}%
-}
-
-% \subsecref{mysubsec}
-% remember to create a label for the subsection (\label{subsec:mysubsec})
-\newcommand{\subsecref}[1] {%
-  Subsection \ref{subsec:#1}, \textit{\nameref{subsec:#1}}%
-}
-
-% \appref{myapp}
-% remember to create a label for the appendix (\label{app:myapp})
-\newcommand{\appref}[1] {%
-  Appendix \ref{app:#1}, \textit{\nameref{app:#1}}%
-}
-
-% \tabref{mytab}
-% remember to create a label for the table (\label{tab:mytab})
-\newcommand{\tabref}[1]{Tabla \ref{tab:#1}}
-
-% \figref{myfig}
-% remember to create a label for the figure (\label{fig:myfig})
-\newcommand{\figref}[1] {Figura \ref{fig:#1}}
-
-
-
 % FIGURES
-
-% \drawiosvgfigure[width]{filename}{caption}
-% remember to disable Word Wrap and Formatted Text for all text (https://www.drawio.com/doc/faq/svg-export-text-problems#disable-formatted-text-and-word-wrap)
-\newcommand{\drawiosvgfigure}[3][0.7] {
-  \begin{figure}[htbp]
-    \centering
-    \includesvg[inkscapelatex=false,width=#1\textwidth]{#2.drawio.svg}
-    \caption{#3}
-    \label{fig:#2}
-  \end{figure}
-}
 
 % \rasterfigure[width]{filename}{caption}
 \newcommand{\rasterfigure}[3][0.7] {
@@ -66,12 +17,51 @@
 \newcommand{\svgfigure}[3][0.7] {
   \begin{figure}[htbp]
     \centering
-    \includesvg[width=#1\textwidth]{#2}
+    \includesvg[inkscapelatex=false,width=#1\textwidth]{#2}
     \caption{#3}
     \label{fig:#2}
   \end{figure}
 }
 
+
+% REFERENCES
+
+\RequirePackage{nameref}
+
+% \chapref{mychap}
+% remember to create a label for the section (\label{chap:mychap})
+\newcommand{\partref}[1] {%
+  Parte \ref{chap:#1}, \textit{\nameref{part:#1}}%
+}
+
+% \secref{mysec}
+% remember to create a label for the section (\label{sec:mysec})
+\newcommand{\secref}[1] {%
+  Sección \ref{sec:#1}, \textit{\nameref{sec:#1}}%
+}
+
+% \subsecref{mysubsec}
+% remember to create a label for the subsection (\label{subsec:mysubsec})
+\newcommand{\subsecref}[1] {%
+  Subsección \ref{subsec:#1}, \textit{\nameref{subsec:#1}}%
+}
+
+% \appref{myapp}
+% remember to create a label for the appendix (\label{app:myapp})
+\newcommand{\appref}[1] {%
+  Apéndice \ref{app:#1}, \textit{\nameref{app:#1}}%
+}
+
+% \tabref{mytab}
+% remember to create a label for the table (\label{tab:mytab})
+\newcommand{\tabref}[1]{Tabla \ref{tab:#1}}
+
+% \figref{myfig}
+% remember to create a label for the figure (\label{fig:myfig})
+\newcommand{\figref}[1] {Figura \ref{fig:#1}}
+
+
+% EXTRA
 
 % \footurl{url}
 \newcommand{\footurl}[1]{\footnote{\url{#1}}}

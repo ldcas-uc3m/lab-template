@@ -1,12 +1,12 @@
 # Lab report template
 
-This report follows [GUL's UC3M LaTeX report template](https://github.com/guluc3m/report-template/). More information and updated versions on the original repository.
 
 
 ## Compilation
 This report follows [GUL's UC3M LaTeX report template](https://github.com/guluc3m/report-template/). More information and updated versions on the original repository.
 
 First you must install [LaTeX](https://www.latex-project.org/).
+
 - For Linux, install `texlive-full` (takes a while).
 - For Windows, install [MiKTeX](https://miktex.org/download#win), ensure it's added to `PATH`, and install [Strawberry Perl](https://strawberryperl.com/).  
   With [winget](https://github.com/microsoft/winget-cli):
@@ -14,10 +14,10 @@ First you must install [LaTeX](https://www.latex-project.org/).
   winget install MiKTeX.MiKTeX StrawberryPerl.StrawberryPerl
   ```
   Once you install MiKTeX, open it, go to `Update`, and update all packages.
-
-- For MacOS, install [MacTeX](https://www.tug.org/mactex/mactex-download.html) and install `latexmk` with:
+- For MacOS, install [MacTeX](https://www.tug.org/mactex/mactex-download.html).  
+    With [brew](https://brew.sh):
     ```
-    sudo tlmgr install latexmk
+    brew install --cask mactex
     ```
 
 > [!IMPORTANT]
