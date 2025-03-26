@@ -15,15 +15,9 @@ latexmk -cd -shell-escape -silent -pdf report/report.tex
 cp report/report.pdf .
 
 
-cd src
-
-# <clean stuff up>
-
-cd ..
-
 # zip it (excluding useless stuff)
 echo "Zipping..."
-zip -r $OUTFILE . -x zip.sh report/\* \*.git\* img/\* *__pycache__/\* .venv/\* build/\* .vscode/\*
+zip -FS -r $OUTFILE . -x zip.sh report/\* \*.git\* img/\* \*__pycache__/\* \*.venv/\* \*build/\* .vscode/\* LICENSE README.md
 
 # cleanup
 echo "Cleaning up..."
