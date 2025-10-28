@@ -2,7 +2,7 @@
 # Bash script to zip the whole project in order to make it deriverable
 # please make sure zip and texlive are installed
 
-set -e  # exit on error
+set -euo pipefail  # exit on error
 
 OUTFILE=../outfile.zip
 [ -e $OUTFILE ] && rm $OUTFILE  # remove if exists already
