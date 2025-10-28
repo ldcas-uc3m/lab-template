@@ -17,7 +17,7 @@ cp report/report.pdf .
 
 # zip it (excluding useless stuff)
 echo "Zipping..."
-zip -FS -r $OUTFILE . -x zip.sh report/\* \*.git\* img/\* \*__pycache__/\* \*.venv/\* \*build/\* .vscode/\* LICENSE README.md
+zip -FS -r $OUTFILE . -x zip.sh report/\* \*.git\* img/\* \*__pycache__/\* \*.venv/\* \*build/\* .vscode/\* \*.DS_Store .idea/\* LICENSE README.md
 
 # cleanup
 echo "Cleaning up..."
